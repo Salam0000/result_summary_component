@@ -1,208 +1,407 @@
+
+/* =========================
+   1. Global styles
+========================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 :root {
-    /* Primary */
     --light-red: hsl(0, 100%, 67%);
     --orangey-yellow: hsl(39, 100%, 56%);
     --green-teal: hsl(166, 100%, 37%);
     --cobalt-blue: hsl(234, 85%, 45%);
-    /* Gradients */
+
     --light-slate-blue: hsl(252, 100%, 67%);
     --light-royal-blue: hsl(241, 81%, 54%);
 
     --violet-blue: hsla(256, 72%, 46%, 1);
     --persian-blue: hsla(241, 72%, 46%, 0);
-    /* Neutral */
+
     --white: hsl(0, 0%, 100%);
     --pale-blue: hsl(221, 100%, 96%);
     --light-lavender: hsl(241, 100%, 89%);
     --dark-gray-blue: hsl(224, 30%, 27%);
-    --font-size: 18px;
-    --font-family-hanken: "Trirong", sans-serif;
-    --font-family-grotesk: "Trirong", sans-serif;
-    --font-weight-height: 800;
-    --font-weight-medium: 600;
-    --font-weight-small: 200;
 
+    --font-size: 18px;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
-    background-color: var(--pale-blue);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 16px;
+    background: var(--pale-blue);
+    color: var(--dark-gray-blue);
+    font-family: "Hanken Grotesk", sans-serif;
     font-size: var(--font-size);
 }
 
+/* =========================
+   2. Main card
+========================= */
+
 .parent {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: var(--white);
-    margin: 5% auto;
-    width: 50%;
-    height: 400px;
+    width: 100%;
+    max-width: 736px;
+    min-height: 512px;
+    margin: auto;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-radius: 25px;
-    font-family: var(--font-family-grotesk);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    background: var(--white);
+    border-radius: 32px;
+    box-shadow: 0 20px 45px rgba(61, 108, 236, 0.12);
+    overflow: hidden;
 }
 
-.left_column,
-.right_column {
-    background-color: var(--violet-blue);
-    color: var(--white);
-    border-radius: 30px;
-    height: 100%;
+/* =========================
+   3. Left result panel
+========================= */
+
+.left_column {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 38px 32px;
+    text-align: center;
+    color: var(--white);
+    background: linear-gradient(
+        to bottom,
+        var(--light-slate-blue),
+        var(--light-royal-blue)
+    );
+    border-radius: 32px;
 }
 
-.score> :first-child {
-    font-size: 60px;
-    font-weight: var(--font-weight-height);
+.result {
+    color: var(--light-lavender);
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
 .score {
-    background-image: linear-gradient(var(--dark-gray-blue), var(--violet-blue));
+    width: 200px;
+    max-width: 100%;
+    aspect-ratio: 1;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    height: 33%;
-    width: 50%;
+    background: linear-gradient(
+        to bottom,
+        var(--violet-blue),
+        var(--persian-blue)
+    );
 }
 
-h3 {
-    font-size: 30px;
+.score > :first-child {
+    color: var(--white);
+    font-size: clamp(3.5rem, 7vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: 800;
 }
 
-.description {
-    width: 70%;
-    font-size: 16px;
-}
-
-.description,
-.result,
-.score> :last-child {
+.score > :last-child {
     color: var(--light-lavender);
+    font-size: 1rem;
+}
+
+.left_column h3 {
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .description {
-    text-align: center;
+    width: 100%;
+    max-width: 270px;
+    color: var(--light-lavender);
+    font-size: 1rem;
+    line-height: 1.5;
 }
+
+/* =========================
+   4. Right summary panel
+========================= */
 
 .right_column {
-    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 38px 32px;
+    background: var(--white);
     color: var(--dark-gray-blue);
-    padding: 30px;
-
 }
+
+.summary {
+    margin-bottom: 4px;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+/* Score rows */
 
 .reaction,
 .memory,
 .verbel,
 .visual {
     width: 100%;
-    height: 50px;
+    min-height: 56px;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    position: relative;
-    border-radius: 10px;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.reaction > :first-child,
+.memory > :first-child,
+.verbel > :first-child,
+.visual > :first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reaction img,
+.memory img,
+.verbel img,
+.visual img {
+    width: 20px;
+    height: 20px;
 }
 
 .reaction {
-    background-color: hsl(0, 100%, 67%, 0.080);
-
+    color: var(--light-red);
+    background: hsl(0, 100%, 67%, 0.08);
 }
 
 .memory {
-    background-color: hsl(39, 100%, 56%, 0.080);
+    color: var(--orangey-yellow);
+    background: hsl(39, 100%, 56%, 0.08);
 }
 
 .verbel {
-    background-color: hsla(166, 100%, 37%, 0.080);
+    color: var(--green-teal);
+    background: hsl(166, 100%, 37%, 0.08);
 }
 
 .visual {
-    background-color: hsl(234, 85%, 45%, 0.080);
-}
-
-.summary {
-    align-self: flex-start;
-    /* padding-left: 40px; */
-    font-weight: var(--font-weight-height);
-}
-
-.reaction> :first-child {
-    color: var(--light-red);
-}
-
-.reaction>:last-child::after {
-    content: "80";
-    font-weight: var(--font-weight-height);
-    position: absolute;
-    left: 190px;
-    bottom: 14px;
-}
-
-.memory> :first-child {
-    color: var(--orangey-yellow);
-}
-
-.memory>:last-child::after {
-    content: "92";
-    font-weight: var(--font-weight-height);
-    position: absolute;
-    left: 190px;
-    bottom: 14px;
-}
-
-.verbel> :first-child {
-    color: var(--green-teal);
-}
-
-.verbel>:last-child::after {
-    content: "61";
-    font-weight: var(--font-weight-height);
-    position: absolute;
-    left: 190px;
-    bottom: 14px;
-}
-
-.visual> :first-child {
     color: var(--cobalt-blue);
+    background: hsl(234, 85%, 45%, 0.08);
 }
 
-.visual>:last-child::after {
-    content: "72";
-    font-weight: var(--font-weight-height);
-    position: absolute;
-    left: 190px;
-    bottom: 14px;
+/* Score values */
+
+.reaction > :last-child,
+.memory > :last-child,
+.verbel > :last-child,
+.visual > :last-child {
+    color: var(--dark-gray-blue);
+    font-weight: 800;
+    white-space: nowrap;
 }
 
-input {
-    background-color: var(--dark-gray-blue);
-    border: solid var(--dark-gray-blue);
+/* Replace the original pseudo-element scores with real values
+   in the HTML for better accessibility. */
+
+.right_column input[type="button"] {
+    width: 100%;
+    min-height: 54px;
+    margin-top: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    background: var(--dark-gray-blue);
     color: var(--white);
-    border-radius: 50px;
-    text-align: center;
-    padding: 10px 0px;
-    width: 300px;
-    margin: auto;
-    display: block;
-    font-weight: var(--font-weight-medium);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
+
+.right_column input[type="button"]:hover {
+    background: linear-gradient(
+        to bottom,
+        var(--light-slate-blue),
+        var(--light-royal-blue)
+    );
+}
+
+/* =========================
+   5. Attribution
+========================= */
 
 .attribution {
+    margin-top: 24px;
     font-size: 11px;
     text-align: center;
+    line-height: 1.6;
 }
 
 .attribution a {
     color: hsl(228, 45%, 44%);
+}
 
+/* =========================
+   6. Tablet screens
+========================= */
+
+@media (max-width: 768px) {
+    body {
+        padding: 24px 16px;
+    }
+
+    .parent {
+        max-width: 600px;
+        min-height: 450px;
+    }
+
+    .left_column {
+        padding: 30px 22px;
+        gap: 20px;
+    }
+
+    .right_column {
+        padding: 30px 22px;
+        gap: 16px;
+    }
+
+    .score {
+        width: 160px;
+    }
+
+    .left_column h3 {
+        font-size: 1.7rem;
+    }
+
+    .reaction,
+    .memory,
+    .verbel,
+    .visual {
+        padding: 10px;
+        font-size: 0.88rem;
+    }
+}
+
+/* =========================
+   7. Mobile screens
+========================= */
+
+@media (max-width: 540px) {
+    body {
+        display: block;
+        padding: 0;
+        background: var(--white);
+    }
+
+    .parent {
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        margin: 0;
+        grid-template-columns: minmax(0, 1fr);
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .left_column {
+        min-height: 350px;
+        padding: 26px 28px 32px;
+        gap: 18px;
+        border-radius: 0 0 30px 30px;
+    }
+
+    .result {
+        font-size: 1.1rem;
+    }
+
+    .score {
+        width: 140px;
+    }
+
+    .score > :first-child {
+        font-size: 3.5rem;
+    }
+
+    .left_column h3 {
+        font-size: 1.6rem;
+    }
+
+    .description {
+        max-width: 290px;
+        font-size: 0.95rem;
+    }
+
+    .right_column {
+        padding: 28px 24px 32px;
+        gap: 16px;
+    }
+
+    .summary {
+        margin-bottom: 4px;
+        font-size: 1.2rem;
+    }
+
+    .reaction,
+    .memory,
+    .verbel,
+    .visual {
+        min-height: 54px;
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .right_column input[type="button"] {
+        margin-top: 8px;
+    }
+
+    .attribution {
+        margin: 0;
+        padding: 16px 12px;
+        background: var(--white);
+    }
+}
+
+/* =========================
+   8. Very small phones
+========================= */
+
+@media (max-width: 360px) {
+    .left_column {
+        min-height: 320px;
+        padding-inline: 20px;
+    }
+
+    .score {
+        width: 125px;
+    }
+
+    .right_column {
+        padding-inline: 18px;
+    }
+
+    .reaction,
+    .memory,
+    .verbel,
+    .visual {
+        gap: 6px;
+        font-size: 0.85rem;
+    }
 }
